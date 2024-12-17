@@ -44,12 +44,12 @@ const Contact = () => {
   };
 
   return (
-    <div id="contact" className="">
-      <div className="row justify-content-center">
-        <div className="col-xl-5 col-lg-5 col-md-10 col-11">
+    <div id="contact" className="py-2 py-lg-6 my-5 my-lg-6">
+      <div className="row justify-content-center align-items-center row-gap-2">
+        <div className="col-xl-5 col-lg-5 col-md-6 col-sm-10 col-11">
           <div className="card">
-            <div className="card-body p-5">
-              <h2 className="primary-color text-uppercase text-center py-4">
+            <div className="card-body p-4 p-lg-5">
+              <h2 className="primary-color text-uppercase text-center py-4 heading-font">
                 Contact Me
               </h2>
               <form onSubmit={handleSubmit}>

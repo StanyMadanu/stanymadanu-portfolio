@@ -6,7 +6,7 @@ import { RiWhatsappFill } from "react-icons/ri";
 
 const Footer = () => {
   return (
-    <div className="py-2">
+    <div className="pb-2">
       <div className="social-links d-flex justify-content-center gap-3">
         <a href="" className="linkedin">
           <span>
