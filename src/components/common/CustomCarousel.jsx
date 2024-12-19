@@ -7,6 +7,7 @@ const CustomCarousel = ({ images, id }) => {
         <div className="carousel-indicators">
           {images.map((img, index) => (
             <button
+              key={index}
               type="button"
               data-bs-target={`#${id}`}
               data-bs-slide-to={index}
@@ -18,7 +19,10 @@ const CustomCarousel = ({ images, id }) => {
         </div>
         <div className="carousel-inner rounded">
           {images.map((img, index) => (
-            <div className={`carousel-item ${index === 1 ? "active" : ""}`}>
+            <div
+              key={index}
+              className={`carousel-item ${index === 1 ? "active" : ""}`}
+            >
               <img src={img} className="d-block w-100" alt="..." />
             </div>
           ))}

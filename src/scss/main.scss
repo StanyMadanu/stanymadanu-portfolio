@@ -24,6 +24,7 @@ body {
   background-color: rgb(var(--secondary-color));
   color: rgb(var(--fx-white));
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 a {
@@ -154,4 +155,33 @@ button {
   .my-lg-6 {
     margin: 6rem 0 !important;
   }
+}
+
+//header styles
+
+.header-sticky {
+  position: sticky;
+  transform: translateY(0);
+  animation: fadeInDown 0.5s ease-in-out 0s normal;
+  background-color: #0d0e0f !important;
+  box-shadow: 0 2px 28px 0 #0000000f !important;
+  left: 0;
+  top: 0;
+  transition: 0.4s;
+  width: 100%;
+  z-index: 999;
+}
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateZ(0);
+  }
+}
+
+.navbar-collapse {
+  justify-content: center !important;
 }

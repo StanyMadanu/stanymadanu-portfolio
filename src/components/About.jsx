@@ -3,7 +3,7 @@ import Image1 from "../images/1.png";
 
 const About = () => {
   return (
-    <div id="about" className="py-2 py-lg-6 my-5 my-lg-6">
+    <div id="about" className="py-2 py-lg-6 my-5 my-lg-6 overflowX-hidden">
       <div className="container">
         <h1 className="text-uppercase text-center heading-font mb-5">
           About <span className="primary-color">me</span>

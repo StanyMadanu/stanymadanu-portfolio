@@ -1,46 +1,31 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const form = useRef();
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const [status, setStatus] = useState("");
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setStatus("Sending...");
 
-    try {
-      const response = await fetch(
-        "https://my-backend-875y26k6e-madanu-stanys-projects.vercel.app//send-email",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
+    emailjs
+      .sendForm(
+        "service_wz99j71", // Replace with your EmailJS service ID
+        "template_v7uloao", // Replace with your EmailJS template ID
+        form.current,
+        "sFMHep8h2pP0p59m8" // Replace with your EmailJS public key
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          setIsSubmitted(true);
+        },
+        (error) => {
+          console.error(error.text);
         }
       );
 
-      const data = await response.json();
-      if (response.ok) {
-        setStatus("Email sent successfully!");
-        setFormData({ name: "", email: "", message: "" });
-      } else {
-        setStatus(data.error || "Failed to send email.");
-      }
-    } catch (error) {
-      console.error(error);
-      setStatus("Error sending email.");
-    }
+    e.target.reset(); // Reset the form fields after submission
   };
 
   return (
@@ -52,60 +37,60 @@ const Contact = () => {
               <h2 className="primary-color text-uppercase text-center py-4 heading-font">
                 Contact Me
               </h2>
-              <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                  <label htmlFor="name" className="form-label ms-2">
-                    Your Name
-                  </label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    id="name"
-                    placeholder="Enter your name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="mail" className="form-label ms-2">
-                    Your Email
-                  </label>
-                  <input
-                    className="form-control"
-                    type="mail"
-                    id="mail"
-                    name="email"
-                    placeholder="Enter your email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="mb-5">
-                  <label htmlFor="message" className="form-label ms-2">
-                    Message
-                  </label>
-                  <textarea
-                    className="form-control"
-                    type="text"
-                    rows="4"
-                    cols="50"
-                    id="message"
-                    name="message"
-                    placeholder="Enter your message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="mt-5 text-end">
-                  <button type="submit" className="text-uppercase">
-                    submit
-                  </button>
-                </div>
-              </form>
+              {isSubmitted ? (
+                <p className="text-center">
+                  🎉 Thank you! Your message has been sent 🎉
+                </p>
+              ) : (
+                <form ref={form} onSubmit={handleSubmit}>
+                  <div className="mb-4">
+                    <label htmlFor="name" className="form-label ms-2">
+                      Your Name
+                    </label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      id="name"
+                      placeholder="Enter your name"
+                      name="from_name"
+                      required
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="mail" className="form-label ms-2">
+                      Your Email
+                    </label>
+                    <input
+                      className="form-control"
+                      type="mail"
+                      id="mail"
+                      name="user_email"
+                      placeholder="Enter your email"
+                      required
+                    />
+                  </div>
+                  <div className="mb-5">
+                    <label htmlFor="message" className="form-label ms-2">
+                      Message
+                    </label>
+                    <textarea
+                      className="form-control"
+                      type="text"
+                      rows="4"
+                      cols="50"
+                      id="message"
+                      name="message"
+                      placeholder="Enter your message"
+                      required
+                    />
+                  </div>
+                  <div className="mt-5 text-end">
+                    <button type="submit" className="text-uppercase">
+                      submit
+                    </button>
+                  </div>
+                </form>
+              )}
             </div>
           </div>
         </div>
